@@ -3,6 +3,8 @@ import path from 'path';
 import url from 'url';
 import posts from './routes/posts.js';
 import logger from './middleware/logger.js';
+import errorHandler from './middleware/error.js';
+import notFound from './middleware/notFound.js';
 const port = process.env.PORT || 8000;
 const app = express();
 
@@ -35,5 +37,11 @@ app.get('/about', (req, res) => {
 
 //Routes
 app.use('/api/posts', posts);
+
+//Catch all error middleware
+app.use(notFound);
+
+//Error handler
+app.use(errorHandler);
 
 app.listen(port, () => console.log(`Server is running on port ${port}`));
