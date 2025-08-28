@@ -2,12 +2,16 @@ import express from 'express';
 import path from 'path';
 import url from 'url';
 import posts from './routes/posts.js';
+import logger from './middleware/logger.js';
 const port = process.env.PORT || 8000;
 const app = express();
 
 //Body parses middleware;
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+
+//Logger middleware
+app.use(logger);
 
 const __filename = url.fileURLToPath(import.meta.url); // shows current file location
 // console.log(__filename);
